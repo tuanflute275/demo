@@ -9,7 +9,7 @@ import {
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import classNames from "classnames/bind";
-import styles from "./Login.module.scss";
+import styles from "./login.module.scss";
 
 const cx = classNames.bind(styles);
 const { Title, Text, Paragraph } = Typography;
