@@ -1,0 +1,73 @@
+@use '../../styles/variables' as *;
+
+.usersPage {
+  width: 100%;
+}
+
+.header-danh-sach {
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.breadcrumb {
+  margin-bottom: 12px;
+}
+
+.pageTitle {
+  font-size: 24px !important;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  color: $text-color-dark;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.addButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.searchButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cardTable {
+  margin-bottom: 12px;
+  :global(.ant-card-head-title) {
+    font-size: 20px !important;
+    font-weight: 600;
+  }
+}
+
+.searchButtonContainer {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.searchButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tableCard {
+  .userAvatar {
+    margin-right: 12px;
+  }
+  
+  .actions {
+    display: flex;
+    gap: 8px;
+  }
+}

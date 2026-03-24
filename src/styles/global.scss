@@ -1,0 +1,160 @@
+@use '@/styles/variables.scss' as *;
+
+// Font
+@import url("https://fonts.cdnfonts.com/css/sf-pro-display");
+
+// Global reset
+*, *::before, *::after {
+  font-family: $font-family-primary;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+li {list-style: none; }
+
+a {color: inherit;}
+// scrollbar colors
+// html, body {
+//   margin: 0;
+//   font-family: $font-family-primary;
+//   -webkit-font-smoothing: antialiased;
+//   -moz-osx-font-smoothing: grayscale;
+
+//   // Scrollbar (Firefox)
+//   scrollbar-width: thin;
+//   scrollbar-color: $scrollbar-thumb $scrollbar-track;
+
+//   // Scrollbar (Webkit)
+//   &::-webkit-scrollbar {
+//     width: 10px;
+//     height: 10px;
+//   }
+//   &::-webkit-scrollbar-track {
+//     background: $scrollbar-track;
+//   }
+//   &::-webkit-scrollbar-thumb {
+//     background: $scrollbar-thumb;
+//     border-radius: 5px;
+//     &:hover { background: $scrollbar-thumb-hover; }
+//   }
+// }
+
+// Ẩn thanh cuộn hệ thống nhưng vẫn cho phép scroll
+/* ==========================================================================
+   HIDE DEFAULT SCROLLBAR (Toàn dự án)
+   ========================================================================== */
+
+html, body {
+  // 1. Cho Firefox
+  scrollbar-width: none; 
+
+  // 2. Cho IE và Edge cũ
+  -ms-overflow-style: none; 
+
+  // 3. Cho Chrome, Safari, và các trình duyệt Webkit (Mobile)
+  &::-webkit-scrollbar {
+    display: none; 
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent;
+  }
+}
+
+/* 📱 Chỉ ẩn trên Mobile nếu bạn muốn giữ lại trên Desktop */
+@media (max-width: 768px) {
+  * {
+    &::-webkit-scrollbar {
+      display: none !important;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+// AntD Overrides - Gom gọn vào 1 block global
+:global {
+  .ant-typography {
+    font-family: $font-family-primary;
+  }
+
+  // --- Button Styling ---
+  .ant-btn {
+    height: 34px;
+    padding: 4px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+
+  // Custom Color Buttons (Dùng mixin hoặc viết gọn)
+  .green-btn.ant-btn-variant-solid {
+    background-color: $green-btn;
+    &:hover:not(:disabled) { background-color: $green-btn-hover !important; }
+  }
+  .red-btn.ant-btn-variant-solid {
+    background-color: $red-btn;
+    &:hover:not(:disabled) { background-color: $red-btn-hover !important; }
+  }
+  .yellow-btn.ant-btn-variant-solid {
+    background-color: $yellow-btn;
+    color: $black;
+    &:hover:not(:disabled) { background-color: $yellow-btn-hover !important; }
+  }
+
+  // --- Input & Form Elements Unified Height ---
+  .ant-input,
+  .ant-select-selector,
+  .ant-picker {
+    height: 34px !important;
+    min-height: 34px !important;
+    border-radius: 6px;
+
+    // Focus State
+    &:focus, .ant-select-focused & {
+      border-color: $primary-color !important;
+      box-shadow: 0 0 0 2px $modal-focus-ring !important;
+    }
+  }
+
+  // --- Unified Disabled States (Background & Text) ---
+  .ant-btn-variant-solid:disabled,
+  .ant-input[disabled],
+  .ant-select-disabled .ant-select-selector {
+    background: $disabled-bg !important;
+    color: $disabled-text !important;
+  }
+  
+  // Specific Disabled Text Color overrides
+  .ant-input[disabled],
+  .ant-select-disabled,
+  .ant-picker-disabled,
+  .ant-checkbox-disabled + span,
+  .ant-radio-wrapper-disabled {
+    color: $rgb-30 !important;
+  }
+
+  // --- Pagination ---
+  .ant-pagination-item {
+    border-radius: 50%;
+    &-active a, &-active span { color: $white !important; }
+  }
+
+  // --- Modal ---
+  .ant-modal {
+    &-header { background-color: $primary-color !important; }
+    &-title, &-close { color: $white !important; }
+  }
+
+  // --- Form Label & Required ---
+  .ant-form-item {
+    &-label > label { color: $black; font-weight: 600; }
+    &-required::before { color: $required-color !important; }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  :global(.ant-modal) {
+    width: 95% !important;
+    max-width: none !important;
+  }
+}

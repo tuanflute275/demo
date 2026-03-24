@@ -1,0 +1,592 @@
+@use '@/styles/variables.scss' as *;
+
+// #region Keyframes
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes pulse-blue {
+    0% {
+        box-shadow: 0 0 0 0 rgba(24, 144, 255, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 15px rgba(24, 144, 255, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(24, 144, 255, 0);
+    }
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent;
+    }
+
+    50% {
+        border-color: $primary-color;
+    }
+}
+
+// #endregion
+
+// #region Styles
+.container {
+    min-height: 100vh;
+    // Nền gradient xanh dương nhẹ + họa tiết mờ
+    background:
+        radial-gradient(circle at 10% 20%,
+            rgba(24, 144, 255, 0.05) 0%,
+            transparent 20%),
+        radial-gradient(circle at 90% 80%,
+            rgba(24, 144, 255, 0.05) 0%,
+            transparent 20%),
+        linear-gradient(135deg, #f0f5ff 0%, #ffffff 100%);
+    padding: 0 50px;
+    overflow: hidden; // Ẩn các phần tử nền tràn ra ngoài
+    position: relative;
+}
+
+// Các khối trang trí nền (Abstract shapes)
+.bgShape1,
+.bgShape2 {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: 0;
+    opacity: 0.4;
+}
+
+.bgShape1 {
+    top: -100px;
+    right: -50px;
+    width: 400px;
+    height: 400px;
+    background: #1890ff;
+    animation: float 8s ease-in-out infinite;
+}
+
+.bgShape2 {
+    bottom: -150px;
+    left: -100px;
+    width: 500px;
+    height: 500px;
+    background: #69c0ff;
+    animation: float 12s ease-in-out infinite reverse;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent !important;
+    padding: 20px 0;
+    height: auto;
+    position: relative;
+    z-index: 2;
+}
+
+.logoArea {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 24px;
+    font-weight: 700;
+    color: $primary-color;
+    transition: transform 0.3s ease;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}
+
+.navLinks {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+
+    a {
+        color: $text-color;
+        font-weight: 500;
+        position: relative;
+        transition: color 0.3s;
+        white-space: nowrap;
+
+        &::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 17px;
+            left: 0;
+            background-color: $primary-color;
+            transition: width 0.3s ease-in-out;
+        }
+
+        &:not(:last-child):hover {
+            color: $primary-color;
+
+            &::after {
+                width: 100%;
+            }
+
+            // list link -> phần tử cuối cùng không đổi màu và không có gạch chân
+            &:last-child {
+                &::after {
+                    display: none;
+                }
+
+                &:hover {
+                    color: inherit;
+                }
+            }
+        }
+    }
+
+    // --- 📱 RESPONSIVE CHO MOBILE ---
+    @media (max-width: 768px) {
+        gap: 20px;
+        justify-content: center;
+
+        a {
+            font-size: 14px;
+            padding: 0px 0;
+        }
+
+        // Nút Đăng nhập/Bắt đầu rớt xuống hàng dưới
+        .primaryBtn {
+            width: 100% !important;
+            order: 3; // Đảm bảo luôn nằm sau cùng
+            margin-top: 4px;
+            height: 40px;
+            font-size: 14px;
+        }
+    }
+}
+
+.heroContent {
+    padding: 60px 0;
+    position: relative;
+    z-index: 2;
+}
+
+// Áp dụng hiệu ứng fadeInUp cho các phần tử nội dung
+.animateFadeInUp {
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0; // Bắt đầu ẩn
+}
+
+.delay1 {
+    animation-delay: 0.2s;
+}
+
+.delay2 {
+    animation-delay: 0.4s;
+}
+
+.delay3 {
+    animation-delay: 0.6s;
+}
+
+.badgeUpdate {
+    background: #e6f7ff;
+    border: 1px solid #91d5ff;
+    color: $primary-color;
+    border-radius: 20px;
+    padding: 4px 12px;
+    margin-bottom: 24px;
+    display: inline-block;
+    font-weight: 600;
+}
+
+.mainTitle {
+    font-size: 64px;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    font-weight: 800;
+    color: $text-color;
+
+    .highlight {
+        color: $primary-color;
+        display: block;
+        position: relative;
+        display: inline-block;
+
+        // Gạch chân cách điệu
+        &::before {
+            content: "";
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 15px;
+            background-color: rgba(24, 144, 255, 0.2);
+            z-index: -1;
+            transform: skew(-15deg) rotate(-2deg);
+        }
+    }
+}
+
+.description {
+    font-size: 18px;
+    color: $secondary-text;
+    max-width: 500px;
+    margin-bottom: 40px;
+    line-height: 1.6;
+
+    strong {
+        color: $primary-color;
+    }
+}
+
+.buttonGroup {
+    margin-bottom: 48px;
+    display: flex;
+    gap: 16px;
+}
+
+.primaryBtn {
+    height: 48px !important;
+    padding: 0 32px !important;
+    border-radius: 12px !important;
+    background: $primary-color !important;
+    border-color: $primary-color !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 14px 0 rgba(24, 144, 255, 0.3) !important;
+    transition: all 0.3s ease !important;
+
+    &:hover {
+        background: $primary-hover !important;
+        border-color: $primary-hover !important;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(24, 144, 255, 0.4) !important;
+    }
+
+    // Hiệu ứng pulse khi nút ở trạng thái active hoặc focus
+    &.pulseEffect {
+        animation: pulse-blue 2s infinite;
+    }
+}
+
+.secondaryBtn {
+    height: 48px !important;
+    padding: 0 32px !important;
+    border-radius: 12px !important;
+    font-weight: 600 !important;
+    color: $primary-color !important;
+    border-color: $primary-color !important;
+    background: transparent !important;
+    transition: all 0.3s ease !important;
+
+    &:hover {
+        background: rgba(24, 144, 255, 0.1) !important;
+        transform: translateY(-2px);
+    }
+}
+
+.featureTags {
+    display: flex;
+    gap: 12px;
+}
+
+.tagItem {
+    border-radius: 8px;
+    padding: 6px 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid #d9d9d9;
+    background: #fff;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    // Hiệu ứng nổi nhẹ liên tục
+    animation: float 4s ease-in-out infinite;
+
+    // Chỉnh thời gian float khác nhau cho tự nhiên
+    &:nth-child(2) {
+        animation-delay: 0.5s;
+    }
+
+    &:nth-child(3) {
+        animation-delay: 1s;
+    }
+
+    &:hover {
+        border-color: $primary-color;
+        color: $primary-color;
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+}
+
+// Window Code Editor
+.codeWindow {
+    background: #1e1e1e; // Màu nền tối như VS Code
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    font-family: "Fira Code", "Consolas", monospace;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #333;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+    animation: fadeInUp 1s ease-out forwards; // Xuất hiện chậm hơn
+
+    &:hover {
+        transform: translateY(-5px) scale(1.01);
+        box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.35);
+    }
+
+    .windowHeader {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 25px;
+        align-items: center;
+
+        span {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .red {
+            background: #ff5f56;
+        }
+
+        .yellow {
+            background: #ffbd2e;
+        }
+
+        .green {
+            background: #27c93f;
+        }
+    }
+
+    .codeContent {
+        color: #d4d4d4;
+        font-size: 15px;
+        line-height: 1.6;
+
+        // Màu sắc highlight cho C# theme tối
+        .comment {
+            color: #6a9955;
+            font-style: italic;
+        }
+
+        .keyword {
+            color: #569cd6;
+            font-weight: bold;
+        }
+
+        // Màu xanh keyword C#
+        .type {
+            color: #4ec9b0;
+        }
+
+        // Tên kiểu dữ liệu, class
+        .function {
+            color: #dcdcaa;
+        }
+
+        // Tên hàm
+        .variable {
+            color: #9cdcfe;
+        }
+
+        .string {
+            color: #ce9178;
+        }
+
+        .number {
+            color: #b5cea8;
+        }
+
+        .linq {
+            color: #c586c0;
+        }
+
+        // Các phương thức LINQ
+
+        .resultContainer {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #fff;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+
+            .typingEffect {
+                overflow: hidden;
+                border-right: 2px solid $primary-color;
+                white-space: nowrap;
+                margin: 0;
+                // Hiệu ứng gõ chữ cho kết quả
+                animation:
+                    typing 2.5s steps(30, end) forwards,
+                    blink-caret 0.75s step-end infinite;
+                width: 0; // Bắt đầu từ 0
+                animation-delay: 1.5s; // Chờ code xuất hiện rồi mới gõ kết quả
+            }
+        }
+    }
+}
+
+// #endregion
+
+// #region Responsive Styles
+// Variables
+$primary-color: #1890ff;
+$mobile-width: 576px;
+$tablet-width: 992px;
+
+.container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f0f5ff 0%, #ffffff 100%);
+    padding: 0 50px;
+    overflow-x: hidden;
+
+    // Responsive Container
+    @media (max-width: $tablet-width) {
+        padding: 0 24px;
+    }
+
+    @media (max-width: $mobile-width) {
+        padding: 0 16px;
+    }
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent !important;
+    padding: 20px 0;
+    height: auto;
+
+    @media (max-width: $mobile-width) {
+        flex-direction: column; // Stack logo và menu trên mobile nếu cần
+        gap: 16px;
+    }
+}
+
+
+.heroContent {
+    padding: 60px 0;
+
+    @media (max-width: $tablet-width) {
+        padding: 0px 0;
+        text-align: center; // Căn giữa nội dung trên tablet/mobile
+    }
+}
+
+.mainTitle {
+    font-size: 64px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 24px;
+
+    @media (max-width: $tablet-width) {
+        font-size: 48px;
+    }
+
+    @media (max-width: $mobile-width) {
+        font-size: 32px;
+    }
+}
+
+.description {
+    font-size: 18px;
+    margin: 0 auto 40px; // Căn giữa margin
+    max-width: 500px;
+
+    @media (max-width: $mobile-width) {
+        font-size: 16px;
+    }
+}
+
+.buttonGroup {
+    display: flex;
+    gap: 16px;
+
+    @media (max-width: $tablet-width) {
+        justify-content: center;
+    }
+
+    @media (max-width: $mobile-width) {
+        flex-direction: column; // Nút bấm xếp chồng trên mobile
+        width: 100%;
+
+        button {
+            width: 100%;
+        }
+    }
+}
+
+.featureTags {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap; // Tự động xuống dòng
+
+    @media (max-width: $tablet-width) {
+        justify-content: center;
+    }
+}
+
+.codeWindow {
+    margin-top: 20px;
+    text-align: left; // Giữ code luôn căn trái
+
+    @media (max-width: $tablet-width) {
+        max-width: 600px;
+        margin: 40px auto 0;
+    }
+
+    @media (max-width: $mobile-width) {
+        padding: 15px;
+
+        .codeContent {
+            font-size: 13px; // Thu nhỏ chữ code trên mobile
+        }
+    }
+}
+
+// #endregion

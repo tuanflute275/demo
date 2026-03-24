@@ -1,0 +1,38 @@
+@use '@/styles/variables.scss' as *;
+
+.master-layout {
+  min-height: 100vh;
+  background: $bg-app;
+}
+
+// Sidebar Desktop: Luôn đứng im bên trái
+.desktop-sider {
+  height: 100vh;
+  position: fixed !important; // Bắt buộc fixed để không trôi
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1000;
+  background: $white;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.02);
+}
+
+// Wrapper chính: Chứa Header và Content
+.main-wrapper {
+  min-height: 100vh;
+  background: $bg-app;
+  display: flex;
+  flex-direction: column;
+  // Transition đã được xử lý inline style trong TSX để mượt hơn
+}
+
+// Khu vực bao quanh nội dung (Content)
+.content-area {
+  flex: 1; // Chiếm hết chiều cao còn lại sau Header
+  padding: 24px;
+  margin-top: 0; // Header đã nằm trong main-wrapper nên không cần margin top
+  
+  @media (max-width: 768px) {
+    padding: 16px;
+  }
+}

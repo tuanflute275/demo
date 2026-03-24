@@ -1,0 +1,39 @@
+@use '@/styles/variables.scss' as *;
+
+// 🟢 4. FOOTER
+.footer {
+    text-align: center;
+    padding: 60px 0 40px;
+    background: #fff;
+    border-top: 1px solid #eef2f6;
+
+    .brand {
+        font-size: 24px;
+        font-weight: 900;
+        color: $brand-dark;
+        letter-spacing: 1px;
+        margin-bottom: 16px;
+    }
+
+    .links {
+        display: flex;
+        justify-content: center;
+        gap: 32px;
+        margin-bottom: 24px;
+
+        a {
+            text-decoration: none;
+            color: $text-sub;
+            font-weight: 600;
+
+            &:hover {
+                color: $brand-primary;
+            }
+        }
+    }
+
+    .copyright {
+        color: #94a3b8;
+        font-size: 13px;
+    }
+}

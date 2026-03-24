@@ -1,0 +1,92 @@
+@use "./styles/variables" as *;
+@use "./styles/global" as *;
+
+:root {
+  font-family: $font-family-primary;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: $font-family-primary;
+}
+
+// Container chính (thường dùng trong Vite/React)
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+}
+
+// Ant Design layout override
+:global(.ant-layout) {
+  min-height: 100vh;
+}
+
+// ==================== UTILITY CLASSES ====================
+
+.global-label-section {
+  border-bottom: 1px solid $border-color-dark;
+  font-weight: 600;
+  font-size: 14px;
+  padding-bottom: 4px;
+  margin-bottom: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.required {
+  color: $required-color;
+  margin-right: 4px;
+  font-weight: bold;
+}
+
+
+// ==================== LOADING OVERLAY ====================
+
+.loading-app {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba($white, 0.6); // Nền trắng mờ
+  z-index: 9999;
+}
+
+.loading-app::after {
+  content: "";
+  width: 50px;
+  height: 50px;
+  border: 5px solid $color-scrollbar-thumb-ccc; // Viền xám nhạt
+  border-top: 5px solid $primary-color; // Spinner màu chính
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// ==================== FORM LABELS ====================
+
+label {
+  display: block;
+  font-weight: 600;
+  font-size: 14px;
+  padding-bottom: 4px;
+  color: $text-color-dark; // Nếu muốn thống nhất màu chữ label
+}

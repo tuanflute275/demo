@@ -1,0 +1,331 @@
+@use '@/styles/variables.scss' as *;
+
+// 🟢 2. HERO SECTION (Deep Blue Gradient)
+.hero-section {
+    position: relative;
+    background: linear-gradient(135deg, $brand-dark 0%, $brand-primary 100%);
+    padding-top: 160px;
+    padding-bottom: 120px;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+
+    // Hình khối trôi nổi (Giống Login)
+    .floating-shape {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.6;
+        animation: floatAnimation 20s infinite alternate ease-in-out;
+
+        &.shape-1 {
+            top: -10%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba($brand-accent, 0.4);
+        }
+
+        &.shape-2 {
+            bottom: 10%;
+            right: -5%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.15);
+        }
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 800px;
+        margin: 0 auto;
+
+        .brand-tag {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            color: #fff;
+            border-radius: 20px;
+            padding: 6px 16px;
+            margin-bottom: 24px;
+            font-weight: 600;
+        }
+
+        .hero-title {
+            font-size: 64px;
+            font-weight: 850;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: #fff;
+
+            .text-highlight {
+                color: $brand-accent;
+            }
+
+            // Màu xanh sáng
+        }
+
+        .hero-desc {
+            font-size: 19px;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 650px;
+            margin: 0 auto 48px;
+        }
+
+        .search-bar-container {
+            max-width: 550px;
+            margin: 0 auto;
+
+            .hero-search {
+                :global(.ant-input-affix-wrapper) {
+                    height: 60px;
+                    border-radius: 30px;
+                    border: none;
+                    padding-left: 24px;
+                    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+
+                    input {
+                        font-size: 16px;
+                    }
+                }
+
+                .search-icon {
+                    color: $brand-primary;
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+
+    .wave-bottom {
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 100%;
+
+        svg {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+    }
+}
+
+@keyframes floatAnimation {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(40px, 40px);
+    }
+}
+
+// 🟢 3. BENTO GRID (Clean & Professional)
+.main-grid-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px 100px;
+    position: relative;
+    z-index: 10;
+    margin-top: -20px; // Đẩy nhẹ lên phần sóng
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+
+    .tech-card {
+        grid-column: span 2;
+    }
+
+    .life-card {
+        grid-column: span 1;
+        background: linear-gradient(135deg, $brand-primary, $brand-dark);
+        color: #fff;
+    }
+
+    .english-card {
+        grid-column: span 1;
+    }
+
+    .data-card {
+        grid-column: span 1;
+    }
+
+    .tools-card {
+        grid-column: span 3;
+    }
+}
+
+.bento-card {
+    background: $card-bg;
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: $shadow-soft;
+    border: 1px solid #eef2f6;
+    transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+
+    h3 {
+        color: $text-main;
+        margin: 12px 0 8px;
+        font-weight: 800;
+    }
+
+    p {
+        color: $text-sub;
+    }
+
+    &:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 50px rgba(0, 56, 150, 0.15);
+        border-color: rgba($brand-primary, 0.3);
+    }
+
+    // Card Styles
+    &.tech-card {
+        .icon-box {
+            width: 50px;
+            height: 50px;
+            background: #eef7ff;
+            color: $brand-primary;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            font-size: 24px;
+        }
+
+        .tech-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+
+            .pill {
+                background: #f8fafc;
+                border: 1px solid #e2e8f0;
+                color: $text-sub;
+                padding: 6px 16px;
+                border-radius: 20px;
+                font-size: 13px;
+                font-weight: 600;
+
+                &:hover {
+                    background: $brand-primary;
+                    color: #fff;
+                    border-color: $brand-primary;
+                }
+            }
+        }
+    }
+
+    &.life-card {
+        .card-bg-icon {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            font-size: 120px;
+            color: rgba(255, 255, 255, 0.1);
+            transform: rotate(-15deg);
+        }
+
+        .sub-text {
+            color: rgba(255, 255, 255, 0.8);
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .card-btn {
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.4);
+
+            &:hover {
+                background: #fff;
+                color: $brand-primary;
+            }
+        }
+
+        h3 {
+            color: #fff;
+        }
+    }
+
+    &.english-card .avatars {
+        margin-top: 16px;
+    }
+
+    .big-icon {
+        font-size: 36px;
+        color: $brand-primary;
+        margin-bottom: 12px;
+    }
+
+    &.tools-card {
+        .tools-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .anticon {
+                font-size: 20px;
+                color: $brand-primary;
+                margin-right: 8px;
+            }
+        }
+    }
+}
+
+
+
+// 📱 MOBILE
+@media (max-width: 768px) {
+    .hero-section {
+        padding-top: 120px;
+
+        .hero-title {
+            font-size: 40px;
+        }
+    }
+
+    .grid-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    
+}
+
+// ==========================================
+// 📱 2. RESPONSIVE QUERY (Xử lý Mobile chuẩn chỉ)
+// ==========================================
+@media (max-width: 992px) {
+    .hero-section {
+        padding-top: 120px;
+
+        .hero-title {
+            font-size: 36px !important;
+        }
+
+        .hero-desc {
+            font-size: 16px !important;
+            padding: 0 16px;
+        }
+    }
+
+    .grid-container {
+        grid-template-columns: 1fr !important; // Chuyển Bento Grid thành 1 cột dọc
+
+        .tech-card,
+        .tools-card,
+        .life-card,
+        .english-card,
+        .data-card {
+            grid-column: span 1 !important;
+        }
+    }
+}
+

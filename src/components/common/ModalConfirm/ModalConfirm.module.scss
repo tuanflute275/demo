@@ -1,0 +1,13 @@
+.modal-confirm {
+  div {
+    :global(.ant-modal-content) {
+      :global(.ant-modal-body) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 16px;
+      }
+    }
+  }
+}

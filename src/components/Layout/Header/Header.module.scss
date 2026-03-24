@@ -1,0 +1,280 @@
+@use '@/styles/variables.scss' as *;
+
+.floating-navbar {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1100px;
+  background: rgba(255, 255, 255, 0.9); // Kính mờ
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+  border-radius: 100px;
+  padding: 10px 32px;
+  z-index: 1000;
+  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+
+  .nav-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  // LOGO
+  .logo {
+    font-weight: 900;
+    font-size: 20px;
+    color: $brand-dark;
+    letter-spacing: 0.5px;
+
+    .dot {
+      color: $brand-primary;
+    }
+  }
+
+  // DESKTOP MENU (Chứa Dropdown)
+  .desktop-menu {
+    display: flex;
+    gap: 32px;
+
+    .menu-item-group {
+      position: relative;
+      display: flex;
+      align-items: center;
+
+      // Menu cha
+      .menu-link {
+        font-weight: 600;
+        color: $text-sub;
+        cursor: pointer;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 15px;
+        transition: all 0.3s ease;
+
+        .arrow-icon {
+          font-size: 10px;
+          transition: transform 0.3s;
+        }
+
+        &:hover {
+          color: $brand-primary;
+
+          .arrow-icon {
+            transform: rotate(180deg);
+          }
+        }
+      }
+
+      .mobile-single-link {
+        padding: 12px 16px;
+        border-bottom: 1px solid #f0f0f0;
+
+        .menu-link-single {
+          color: $text-main;
+          font-weight: 700;
+          font-size: 16px;
+          text-decoration: none;
+        }
+      }
+
+      // Dropdown con (Tuyệt đối không dùng underline)
+      .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: -20px;
+        min-width: 220px;
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        padding: 12px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        border: 1px solid #f0f0f0;
+
+        .dropdown-link {
+          display: block;
+          padding: 10px 16px;
+          color: $text-main;
+          font-weight: 500;
+          text-decoration: none; // 🚫 Bỏ gạch chân
+          border-radius: 8px;
+          transition: 0.2s;
+
+          &:hover {
+            background: #f0f7ff;
+            color: $brand-primary;
+            transform: translateX(4px); // Hiệu ứng đẩy nhẹ sang phải
+          }
+        }
+      }
+
+      // Hiển thị dropdown khi hover
+      &:hover .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+    }
+  }
+
+  // ACTIONS (Login + Hamburger)
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .login-btn {
+      background: linear-gradient(90deg, $brand-primary, #005a9e);
+      border: none;
+      font-weight: 700;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(0, 120, 212, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+
+      &:hover {
+        // ✅ Sửa lỗi: Background phải giữ nguyên Gradient, chỉ chỉnh độ sáng
+        filter: brightness(1.1);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 120, 212, 0.35);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+
+    .mobile-toggle {
+      display: none; // Mặc định ẩn trên Desktop
+      font-size: 20px;
+      color: $brand-dark;
+    }
+  }
+}
+
+
+// ==========================================
+// 🎨 DRAWER STYLING (Menu trượt Mobile)
+// ==========================================
+.drawer-logo {
+  font-size: 20px;
+  font-weight: 900;
+
+  .dot {
+    color: $brand-primary;
+  }
+}
+
+.mobile-menu-list {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  :global(.ant-collapse) {
+    background: transparent;
+    border: none;
+
+    .ant-collapse-item {
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .ant-collapse-header {
+      font-weight: 700;
+      font-size: 16px;
+      padding: 16px 0 !important;
+    }
+  }
+
+  .mobile-link {
+    display: block;
+    padding: 12px 0 12px 16px;
+    color: $text-sub;
+    font-weight: 500;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+
+    &:hover,
+    &:active {
+      color: $brand-primary;
+      border-left-color: $brand-primary;
+      background: #f9f9f9;
+    }
+  }
+
+  .drawer-footer {
+    margin-top: auto;
+    padding-top: 24px;
+  }
+}
+
+
+// 📱 MOBILE
+@media (max-width: 768px) {
+  .grid-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .floating-navbar {
+    width: 95%;
+    padding: 10px 20px;
+
+    .nav-links {
+      display: none;
+    }
+  }
+
+  .mobile-single-link {
+    padding: 12px 16px;
+  }
+}
+
+// ==========================================
+// 📱 2. RESPONSIVE QUERY (Xử lý Mobile chuẩn chỉ)
+// ==========================================
+@media (max-width: 992px) {
+  .floating-navbar {
+    width: 95%;
+    top: 10px;
+    padding: 8px 20px;
+
+    .desktop-menu {
+      display: none;
+    }
+
+    // Ẩn menu desktop
+    .login-btn {
+      display: none;
+    }
+
+    // Ẩn nút login desktop nếu muốn gọn
+
+    .nav-actions .mobile-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center; // Hiện nút hamburger
+    }
+  }
+
+
+
+  .grid-container {
+    grid-template-columns: 1fr !important; // Chuyển Bento Grid thành 1 cột dọc
+
+    .tech-card,
+    .tools-card,
+    .life-card,
+    .english-card,
+    .data-card {
+      grid-column: span 1 !important;
+    }
+  }
+}

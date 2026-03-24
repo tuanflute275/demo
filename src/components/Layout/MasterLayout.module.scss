@@ -1,0 +1,8 @@
+@use '@/styles/variables.scss' as *;
+
+.app-container {
+    background-color: $bg-page;
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+}

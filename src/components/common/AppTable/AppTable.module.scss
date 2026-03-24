@@ -1,0 +1,87 @@
+@use "../../../styles/variables" as *;
+
+.appTable {
+  // Table header styles
+  :global(.ant-table-thead) > :global(tr) > :global(th) {
+    background-color: $primary-color;
+    color: white;
+    font-weight: 600;
+    border-bottom: none;
+
+    &::before {
+      display: none;
+    }
+  }
+
+  // Table row hover - exclude fixed columns to prevent text overlap
+  :global(.ant-table-tbody) > :global(tr) {
+    &:hover
+      > :global(td):not(:global(.ant-table-cell-fix-right)):not(
+        :global(.ant-table-cell-fix-left)
+      ) {
+      background-color: rgba(0, 99, 145, 0.05) !important;
+    }
+  }
+
+  // Custom scrollbar styles
+  :global {
+    .ant-table {
+      .ant-table-container {
+        .ant-table-body,
+        .ant-table-content {
+          // Firefox scrollbar
+          scrollbar-width: thin;
+          scrollbar-color: #eaeaea transparent;
+
+          // Webkit scrollbar (Chrome, Safari, Edge)
+          &::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+          }
+
+          &::-webkit-scrollbar-track {
+            background: transparent;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background: #eaeaea;
+            border-radius: 4px;
+
+            &:hover {
+              background: #d5d5d5;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Pagination styles
+  :global(.ant-pagination) {
+    margin-top: 16px;
+
+    :global(.ant-pagination-item-active) {
+      border-color: $primary-color;
+
+      a {
+        color: $primary-color;
+      }
+    }
+
+    :global(.ant-pagination-item):hover {
+      border-color: $primary-color;
+
+      a {
+        color: $primary-color;
+      }
+    }
+
+    :global(.ant-pagination-next),
+    :global(.ant-pagination-prev) {
+      &:hover {
+        border-color: $primary-color;
+        color: $primary-color;
+      }
+    }
+  }
+}

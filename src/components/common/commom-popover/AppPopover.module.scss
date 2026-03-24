@@ -1,0 +1,28 @@
+@use "../../../styles/variables" as *;
+
+.custom-ok-button {
+  background-color: $primary-color !important;
+
+  color: $white !important;
+  border: none !important;
+  &:global(.ant-btn-variant-outlined) {
+    &:hover {
+      border-color: $primary-color-hover !important;
+      background-color: $primary-color-hover !important;
+      color: $white !important;
+    }
+  }
+}
+
+.custom-cancel-button {
+  background-color: $grayp !important;
+  color: $white !important;
+  border: none !important;
+  &:global(.ant-btn-variant-outlined) {
+    &:hover {
+      border-color: $grayp-hover !important;
+      background-color: $grayp-hover !important;
+      color: $white !important;
+    }
+  }
+}

@@ -1,0 +1,399 @@
+// --- Variables ---
+$bg-dark: #0d1117; // Màu đen sâu (GitHub Dark Dimmed)
+$bg-panel: rgba(22, 27, 34, 0.8); // Bán trong suốt
+$neon-blue: #58a6ff;
+$neon-purple: #bc8cff;
+$neon-green: #3fb950;
+$border-glow: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+
+.editor-container-wow {
+    position: relative;
+    border-radius: 16px;
+    padding: 2px; // Dành chỗ cho viền gradient
+    background: #333; // Fallback
+    margin-top: 24px;
+    // box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+
+    // 1. ANIMATED NEON BORDER (Hiệu ứng viền chạy)
+    &::before {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: $border-glow;
+        background-size: 400%;
+        z-index: -1;
+        border-radius: 18px;
+        filter: blur(8px); // Làm nhòe để tạo hiệu ứng phát sáng (Glow)
+        opacity: 0; // Mặc định ẩn
+        transition: opacity 0.5s;
+        animation: glowing 20s linear infinite;
+    }
+
+    // Khi hover hoặc focus thì viền sáng lên
+    &:hover::before {
+        opacity: 0.6;
+    }
+
+    &.running::before {
+        opacity: 1;
+        filter: blur(15px);
+    }
+
+    // Khi chạy thì sáng rực
+
+    .inner-wrapper {
+        background: $bg-dark;
+        border-radius: 16px;
+        overflow: hidden;
+        height: 600px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        z-index: 1;
+    }
+
+    // 2. HEADER (Glassmorphism)
+    .glass-header {
+        height: 48px;
+        background: rgba(22, 27, 34, 0.7);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 16px;
+
+        .tabs-container {
+            display: flex;
+            gap: 4px;
+
+            .fake-tab {
+                padding: 6px 12px;
+                font-size: 13px;
+                color: #8b949e;
+                border-radius: 6px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                transition: all 0.2s;
+
+                &:hover {
+                    background: rgba(255, 255, 255, 0.05);
+                    color: #c9d1d9;
+                }
+
+                &.active {
+                    background: rgba(56, 139, 253, 0.15);
+                    color: $neon-blue;
+                    font-weight: 500;
+                }
+            }
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            .ai-badge {
+                font-size: 11px;
+                background: linear-gradient(90deg, $neon-purple, $neon-blue);
+                color: white;
+                padding: 2px 8px;
+                border-radius: 12px;
+                font-weight: 700;
+                box-shadow: 0 0 10px rgba(188, 140, 255, 0.4);
+            }
+        }
+    }
+
+    // 3. MAIN BODY
+    .editor-body {
+        flex: 1;
+        display: flex;
+        position: relative;
+        overflow: hidden; // QUAN TRỌNG: Ngăn không cho body bị phình to ra
+
+        .code-area {
+            flex: 1;
+            position: relative;
+        }
+
+        // Floating AI Actions (Nút AI trôi nổi)
+        .floating-ai {
+            position: absolute;
+            // CŨ: bottom: 20px; right: 20px; (Gây đè)
+
+            // MỚI: Đưa lên góc trên bên phải
+            top: 0;
+            right: 70px;
+            bottom: auto; // Reset thuộc tính bottom
+
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+
+            .btn-ai {
+                height: 28px; // Nhỏ lại xíu cho tinh tế
+                border-radius: 14px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                background: rgba(0, 0, 0, 0.4); // Nền trong suốt hơn
+                backdrop-filter: blur(4px);
+                color: $neon-purple;
+                font-size: 11px;
+                font-weight: 600;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+                display: flex;
+                align-items: center;
+                gap: 6px;
+
+                &:hover {
+                    background: $neon-purple;
+                    color: white;
+                    border-color: $neon-purple;
+                    transform: translateY(-2px); // Hiệu ứng nảy nhẹ
+                }
+            }
+        }
+
+        // Glass Terminal (Đã sửa lỗi hiển thị)
+        .glass-terminal {
+            width: 35%;
+            background: rgba(13, 17, 23, 0.95);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            height: 100%; // Chiếm hết chiều cao cha
+            overflow: hidden; // Khóa overflow của container
+
+            .term-head {
+                flex-shrink: 0; // Không bị co lại
+                padding: 10px 14px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                display: flex;
+                justify-content: space-between;
+                // ... (giữ nguyên nội dung bên trong)
+            }
+
+            .term-content {
+                flex: 1; // Chiếm phần còn lại
+                padding: 16px;
+
+                // QUAN TRỌNG: Padding dưới dày lên để né nút Run (48px nút + 20px margin + 20px dư)
+                padding-bottom: 90px;
+
+                font-family: 'Fira Code', monospace;
+                font-size: 13px;
+                color: #c9d1d9;
+
+                // Kích hoạt thanh cuộn
+                overflow-y: auto;
+
+                // Fix lỗi hiển thị scrollbar trên một số trình duyệt
+                min-height: 0;
+
+                .line {
+                    margin-bottom: 6px;
+                    opacity: 0;
+                    animation: slideIn 0.3s forwards;
+                }
+
+                // ...
+            }
+        }
+    }
+
+    // 4. BIG RUN BUTTON (Nút chạy siêu to khổng lồ)
+    .run-overlay {
+        // (Các thuộc tính của .run-overlay giữ nguyên như cũ)
+        position: absolute;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 30;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+        .mega-run-btn {
+            // --- TRẠNG THÁI BÌNH THƯỜNG (GIỮ NGUYÊN) ---
+            height: 44px;
+            padding: 0 28px;
+            border-radius: 22px;
+            // Viền rất mờ, gần như tàng hình
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            // Nền tối, trong suốt nhẹ
+            background: rgba(20, 20, 20, 0.85);
+            backdrop-filter: blur(10px);
+
+            color: rgba(255, 255, 255, 0.9); // Chữ trắng hơi mờ một chút
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+
+            // Bóng đổ sâu, tối màu
+            box-shadow:
+                0 8px 20px -5px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(0, 0, 0, 0.1) inset; // Đổ bóng trong nhẹ để tạo độ sâu
+
+            // Thời gian transition nhanh hơn chút cho cảm giác nhạy
+            transition: all 0.25s ease-out;
+
+            .run-icon {
+                color: #4ade80;
+                font-size: 18px;
+                // Chỉ scale nhẹ, không xoay nữa để bớt trẻ con
+                transition: transform 0.25s ease-out;
+            }
+
+            // --- TRẠNG THÁI HOVER (TINH CHỈNH MỚI) ---
+            &:hover {
+                // 1. Nền sáng lên một chút, bớt trong suốt
+                background: rgba(40, 40, 40, 0.95);
+
+                // 2. Viền sáng lên rõ hơn (nhưng vẫn là màu trắng/xám)
+                border-color: rgba(255, 255, 255, 0.2);
+
+                // 3. Chữ trắng sáng hoàn toàn
+                color: #fff;
+
+                // 4. Nổi lên nhẹ nhàng
+                transform: translateY(-3px);
+
+                // 5. HIỆU ỨNG GLOW MỚI: 
+                // Thay vì viền xanh gắt, ta dùng bóng đổ màu xanh tỏa ra xung quanh nhẹ nhàng
+                box-shadow:
+                    0 15px 30px -10px rgba(0, 0, 0, 0.5), // Bóng đen sâu hơn bên dưới
+                    0 0 20px -5px rgba(#4ade80, 0.3); // Glow xanh nhẹ tỏa ra
+
+                .run-icon {
+                    // Icon chỉ to lên một chút, tạo điểm nhấn
+                    transform: scale(1.15);
+                    // Làm icon sáng rực lên
+                    filter: drop-shadow(0 0 5px rgba(#4ade80, 0.6));
+                }
+            }
+
+            // --- TRẠNG THÁI CLICK (ACTIVE) ---
+            &:active {
+                transform: translateY(-1px) scale(0.98);
+                background: rgba(10, 10, 10, 0.9);
+                box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.4);
+            }
+        }
+
+        // (Trạng thái hidden giữ nguyên)
+        &.hidden {
+            bottom: -40px;
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+
+    // 📱 Responsive cho Mobile
+    @media (max-width: 768px) {
+        .run-overlay {
+            bottom: 16px;
+
+            .mega-run-btn {
+                height: 40px;
+                padding: 0 20px;
+                font-size: 13px;
+            }
+        }
+    }
+}
+
+@keyframes glowing {
+    0% {
+        background-position: 0 0;
+    }
+
+    50% {
+        background-position: 400% 0;
+    }
+
+    100% {
+        background-position: 0 0;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-10px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+// ==========================================
+// RESPONSIVE MOBILE FIX (Max-width: 768px)
+// ==========================================
+@media (max-width: 768px) {
+    .editor-container-wow {
+        .inner-wrapper {
+            height: 700px; // Tăng chiều cao tổng thể lên chút nữa cho thoáng
+        }
+
+        .editor-body {
+            flex-direction: column;
+
+            .code-area {
+                flex: none;
+                height: 55%; // Code chiếm 55%
+                width: 100%;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .glass-terminal {
+                width: 100% !important;
+                height: 45%; // Terminal chiếm 45%
+                border-left: none !important;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+                .term-content {
+                    // Trên mobile nút Run to hơn nên padding cũng phải to hơn
+                    padding-bottom: 100px;
+                }
+            }
+        }
+
+        // Đảm bảo nút Run đè lên trên cùng nhưng không che mất khả năng cuộn của terminal
+        .run-overlay {
+            bottom: 16px;
+            width: 90%;
+            pointer-events: auto; // Vẫn bấm được
+        }
+    }
+
+    .ai-badge {
+        padding: 2px !important;
+    }
+}

@@ -1,0 +1,128 @@
+@use "sass:color";
+
+// ====================== MAIN COLORS ======================
+$primary-color: #1890ff; // Màu xanh dương chủ đạo của Ant Design
+$primary-hover: #096dd9;
+$light-hover: #747bff;
+
+// ====================== STATUS COLORS ======================
+$green-status: #03c95a;
+$green-status-bg: #d4f1e1;
+
+$yellow-status: #ffc107;
+$yellow-status-bg: #fdf7e6;
+
+$red-status: #e70d0d;
+$red-status-bg: #fae7e7;
+
+$blue-status: #1b84ff;
+$blue-status-bg: #ebf4ff;
+
+$orange-status: #f89500;
+$orange-status-bg: #f8950045;
+
+// ====================== BUTTON COLORS ======================
+$green-btn: #198754;
+$green-btn-hover: color.adjust($green-btn, $lightness: -5%);
+
+$red-btn: #dc3545;
+$red-btn-hover: color.adjust($red-btn, $lightness: -5%);
+
+$yellow-btn: #ffc107;
+$yellow-btn-hover: color.adjust($yellow-btn, $lightness: -5%);
+$color-scrollbar-thumb-ccc: #ccc;
+
+// ====================== TEXT & BG ======================
+$white: #fff;
+$whitef5: #f5f5f5; // Thay #fff trong disabled button
+$black: #000;
+$card-bg: #f7f9fc;
+
+$rgb-30: rgb(36 30 30); // Màu chữ disabled (xám đậm nhẹ)
+
+$text-dark: rgba(255, 255, 255, 0.87);
+$text-light: #213547;
+$text-color-dark: #111827;
+$docs-text-color: #6b7280; // Xám nhạt cho description, features
+
+$text-color: #333;
+$secondary-text: #595959;
+
+$bg-dark: #242424;
+$bg-light: #ffffff;
+$bg-app: #fff;
+
+$button-bg-dark: #1a1a1a;
+$button-bg-light: #f9f9f9;
+
+// ====================== BORDER & UI ======================
+$border-color-light: #e0e0e0;
+$border-color-dark: #adb5bd;
+
+$required-color: #ff4d4f; // Dấu * required form
+
+
+// =============================================================================
+// SIDEBAR SPECIFIC VARIABLES (Biến riêng cho Sidebar)
+// =============================================================================
+
+// 1. Colors & Backgrounds
+$sidebar-bg: $white;
+$sidebar-primary: #0078d4; // Giữ màu xanh Microsoft đặc trưng cho Sidebar
+$sidebar-active-bg: #e6f7ff; // Nền khi active
+$sidebar-hover-bg: rgba(0, 0, 0, 0.03);
+$card-bg: #f7f9fc; // Nền card progress
+
+// 2. Gradients
+$brand-gradient: linear-gradient(135deg, $sidebar-primary, #00bcf2);
+$coffee-btn-gradient: linear-gradient(90deg, #FF9F43 0%, #ff6b00 100%);
+$progress-gradient-start: #36cfc9;
+$progress-gradient-end: #1890ff;
+
+// 3. Text Colors
+$text-sidebar-main: $text-color;
+$text-sidebar-sub: #888;
+$text-sidebar-placeholder: #999;
+
+// 4. Borders & Shadows
+$border-sidebar: rgba(0, 0, 0, 0.05);
+$shadow-brand: 0 4px 10px rgba(0, 120, 212, 0.2);
+$shadow-orange-soft: 0 4px 10px rgba(255, 107, 0, 0.25);
+$shadow-orange-hover: 0 8px 20px rgba(20, 182, 236, 0.227);
+
+// 5. Scrollbar
+$scrollbar-thumb-custom: #d9d9d9;
+$scrollbar-thumb-hover: #bfbfbf;
+
+// ====================== SCROLLBAR ======================
+$scrollbar-thumb: #adaaaa;
+$scrollbar-thumb-hover: #d5d5d5;
+$scrollbar-track: transparent;
+
+// ====================== DISABLED STATES ======================
+$disabled-bg: rgba(0, 0, 0, 0.04); // Nền input/button disabled
+$disabled-text: rgba(0, 0, 0, 0.25); // Chữ disabled mặc định của AntD
+
+// ====================== MODAL FOCUS ======================
+$modal-focus-ring: rgba($primary-color, 0.2); // Dùng cho box-shadow focus
+
+// ====================== FONT ======================
+$font-family-primary:
+  "SF Pro Display",
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  "Helvetica Neue",
+  Arial,
+  sans-serif;
+
+
+
+$brand-primary: #0078d4; // Xanh dương chủ đạo
+$brand-accent: #00bcf2; // Xanh sáng điểm nhấn
+$brand-dark: #16213e; // Xanh đen (nền Hero)
+$bg-page: #f8faff; // Nền trang trắng xanh nhẹ
+$card-bg: #ffffff;
+$text-main: #1a1a2e;
+$text-sub: #64748b;
+$shadow-soft: 0 10px 40px rgba(0, 56, 150, 0.08); // Bóng đổ xanh nhẹ

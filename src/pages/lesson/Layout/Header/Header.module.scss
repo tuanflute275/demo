@@ -1,0 +1,184 @@
+@use "@/styles/variables.scss" as *;
+
+.header-container {
+  // GLASSMORPHISM: Hiệu ứng kính mờ
+  background: rgba(255, 255, 255, 0.682) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  padding: 0 24px !important;
+  height: 64px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+
+  // Border bottom mờ nhạt thay vì solid
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+
+  // Shadow mềm mại (Soft Shadow)
+  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.02);
+
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  transition: all 0.3s ease;
+}
+
+
+.left-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  .toggle-btn {
+    font-size: 18px;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    color: #555;
+    transition: all 0.2s;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.04) !important;
+      color: $primary-color;
+    }
+  }
+
+  .breadcrumb-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .course-info {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+
+      @media (min-width: 768px) {
+        flex-direction: row;
+        gap: 6px;
+        align-items: center;
+      }
+
+      .course-name {
+        font-size: 12px;
+        color: #888;
+        font-weight: 500;
+      }
+
+      .separator {
+        color: #ddd;
+        font-size: 10px;
+        display: none;
+
+        @media (min-width: 768px) {
+          display: inline-block;
+        }
+      }
+
+      .lesson-name {
+        font-size: 14px;
+        color: #1a1a1a;
+        font-weight: 700;
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 800px;
+        display: inline-block;
+        vertical-align: middle;
+
+         // --- tablet ---
+        @media (max-width: 1200px) {
+          max-width: 380px;
+        }
+
+        // --- Điện thoại (Dưới 768px) ---
+        @media (max-width: 768px) {
+          max-width: 180px;
+        }
+
+         // --- Điện thoại (Dưới 540px) ---
+        @media (max-width: 540px) {
+          max-width: 170px;
+        }
+      }
+    }
+
+    // --- BADGE ĐẾM BÀI  ---
+    .lesson-badge {
+      display: inline-flex; // Dùng inline-flex để ôm sát nội dung
+      align-items: center;
+      gap: 6px;
+
+      // Kích thước gọn gàng
+      height: 26px;
+      padding: 0 10px;
+      margin-left: 12px;
+
+      // Màu sắc nhẹ nhàng hơn
+      background: rgba(0, 120, 212, 0.06);
+      border: 1px solid rgba(0, 120, 212, 0.15);
+      border-radius: 6px; // Bo góc nhẹ (Modern UI) thay vì viên thuốc
+
+      transition: all 0.2s;
+      cursor: default;
+
+      &:hover {
+        background: rgba(0, 120, 212, 0.1);
+        border-color: rgba(0, 120, 212, 0.3);
+      }
+
+      .icon-book {
+        font-size: 11px; // Icon nhỏ lại
+        color: $primary-color;
+        opacity: 0.8;
+      }
+
+      .counter-text {
+        font-size: 11px; // Chữ nhỏ, sắc nét
+        font-weight: 600;
+        color: #666;
+        line-height: 1; // Căn giữa chiều cao chuẩn
+
+        .current {
+          color: $primary-color;
+          font-weight: 800;
+        }
+
+        .divider {
+          color: #ccc;
+          margin: 0 4px;
+          font-weight: 400;
+        }
+      }
+    }
+  }
+}
+
+.right-section {
+  .btn-discuss {
+    color: #555;
+    font-weight: 500;
+
+    &:hover {
+      color: $primary-color;
+      background: rgba(24, 144, 255, 0.05);
+    }
+  }
+
+  .user-avatar {
+    background: linear-gradient(135deg, $primary-color, #00bcf2);
+    cursor: pointer;
+    border: 2px solid rgba(255, 255, 255, 0.8); // Viền trắng tạo cảm giác nổi
+    box-shadow: 0 2px 8px rgba(24, 144, 255, 0.2);
+    transition: transform 0.2s;
+    margin-left: 10px;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
